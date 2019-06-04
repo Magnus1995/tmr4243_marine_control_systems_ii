@@ -1,0 +1,79 @@
+%implements s13_b0_hdszc_0_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+/* MATLAB Function 'Simulator CSE1/B Command to force mapping/VSP': '<S29>:1' */
+/*  Calculating the force in x-direction */
+/* '<S29>:1:4' */
+/* '<S29>:1:5' */
+/* '<S29>:1:6' */
+/* '<S29>:1:7' */
+/* '<S29>:1:8' */
+/* '<S29>:1:9' */
+/* '<S29>:1:10' */
+/* '<S29>:1:11' */
+/* '<S29>:1:12' */
+/* '<S29>:1:13' */
+/* '<S29>:1:14' */
+/* '<S29>:1:15' */
+/* '<S29>:1:16' */
+/* '<S29>:1:17' */
+/* '<S29>:1:18' */
+/* '<S29>:1:19' */
+/* '<S29>:1:20' */
+/* '<S29>:1:21' */
+/* '<S29>:1:22' */
+localB->F_x = (((((sin(1.001 * rtu_alpha + 1.564) * 1.107 + sin(0.1397 * rtu_alpha + -1.599) * 0.3471) + sin(1.993 * rtu_alpha + 1.886) * 0.1558) + sin(0.218 * rtu_alpha + 1.513) * 0.1599) + sin(2.986 * rtu_alpha + -1.601) * 0.08237) + sin(3.964 * rtu_alpha + 1.738) * 0.04641) * rtu_u_VSP;
+/*  Calculating the force in y-direction */
+/* '<S29>:1:29' */
+/* '<S29>:1:30' */
+/* '<S29>:1:31' */
+/* '<S29>:1:32' */
+/* '<S29>:1:33' */
+/* '<S29>:1:34' */
+/* '<S29>:1:35' */
+/* '<S29>:1:36' */
+/* '<S29>:1:37' */
+/* '<S29>:1:38' */
+/* '<S29>:1:39' */
+/* '<S29>:1:40' */
+/* '<S29>:1:41' */
+/* '<S29>:1:42' */
+/* '<S29>:1:43' */
+/* '<S29>:1:44' */
+/* '<S29>:1:45' */
+/* '<S29>:1:46' */
+/* '<S29>:1:47' */
+localB->F_y = (((((sin(1.001 * rtu_alpha + 0.01605) * 0.7936 + sin(1.997 * rtu_alpha + 0.03229) * 0.2112) + sin(2.991 * rtu_alpha + 2.986) * 0.07608) + sin(3.999 * rtu_alpha + -0.8668) * 0.04817) + sin(4.904 * rtu_alpha + -2.622) * 0.01757) + sin(5.068 * rtu_alpha + 0.2548) * -0.02089) * rtu_u_VSP;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void CSE1_HIL_full16_VSP(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>real_T rtu_alpha\
+%assign comma = ", "
+%<comma>real_T rtu_u_VSP\
+%assign comma = ", "
+%<comma>B_VSP_CSE1_HIL_full16_T *localB\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

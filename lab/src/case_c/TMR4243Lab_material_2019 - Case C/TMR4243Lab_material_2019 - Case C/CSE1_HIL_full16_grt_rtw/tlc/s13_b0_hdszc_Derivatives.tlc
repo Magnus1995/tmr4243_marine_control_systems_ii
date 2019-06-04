@@ -1,0 +1,32 @@
+%implements s13_b0_hdszc_Derivatives "C"
+
+%function Derivatives(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+XDot_CSE1_HIL_full16_T *_rtXdot;
+%closefile localVarDecl
+_rtXdot = %<(SLibCG_SE(SLibGetContStatesDerivativeStructPtr()))>;
+/* Derivatives for Integrator: '<S27>/Velocity' */
+_rtXdot->Velocity_CSTATE[0] = CSE1_HIL_full16_B.nu_dot[0];
+/* Derivatives for Integrator: '<S27>/Position' */
+_rtXdot->Position_CSTATE[0] = CSE1_HIL_full16_B.eta_dot[0];
+/* Derivatives for Integrator: '<S27>/Velocity' */
+_rtXdot->Velocity_CSTATE[1] = CSE1_HIL_full16_B.nu_dot[1];
+/* Derivatives for Integrator: '<S27>/Position' */
+_rtXdot->Position_CSTATE[1] = CSE1_HIL_full16_B.eta_dot[1];
+/* Derivatives for Integrator: '<S27>/Velocity' */
+_rtXdot->Velocity_CSTATE[2] = CSE1_HIL_full16_B.nu_dot[2];
+/* Derivatives for Integrator: '<S27>/Position' */
+_rtXdot->Position_CSTATE[2] = CSE1_HIL_full16_B.eta_dot[2];
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Derivatives(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 16, fcnProtoType)>
+%<LibSetSystemField(system, "CachedDerivativeLocalVars", localVarDecl)>
+%endfunction

@@ -1,0 +1,17 @@
+%implements s13_b0_hdszc_ModelPrevZCStateInit "C"
+
+%function ModelPrevZCStateInit(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+CSE1_HIL_full16_PrevZCX.Velocity_Reset_ZCE = UNINITIALIZED_ZCSIG;
+CSE1_HIL_full16_PrevZCX.Position_Reset_ZCE = UNINITIALIZED_ZCSIG;
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ModelPrevZCStateInit(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 18, fcnProtoType)>
+%endfunction

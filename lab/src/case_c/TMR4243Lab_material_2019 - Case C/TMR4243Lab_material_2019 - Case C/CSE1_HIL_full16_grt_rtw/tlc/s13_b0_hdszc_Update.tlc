@@ -1,0 +1,21 @@
+%implements s13_b0_hdszc_Update "C"
+
+%function Update(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+if (%<(SLibCGIRIsSampleHit(1, 12))>) {
+    /* Update for Memory: '<S1>/Memory' */
+    CSE1_HIL_full16_DW.Memory_PreviousInput = CSE1_HIL_full16_B.switch_signal;
+}
+/* Update for Integrator: '<S27>/Position' */
+CSE1_HIL_full16_DW.Position_IWORK = 0;
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 15, fcnProtoType)>
+%endfunction

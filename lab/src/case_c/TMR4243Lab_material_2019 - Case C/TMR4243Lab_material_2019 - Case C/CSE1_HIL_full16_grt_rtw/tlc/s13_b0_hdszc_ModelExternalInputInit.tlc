@@ -1,0 +1,18 @@
+%implements s13_b0_hdszc_ModelExternalInputInit "C"
+
+%function ModelExternalInputInit(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+(void)memset((void *)&CSE1_HIL_full16_U, 0, sizeof(ExtU_CSE1_HIL_full16_T));
+%<SLibCG_TrackEI(1)>\
+%<SLibCG_TrackEI(0)>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ModelExternalInputInit(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 19, fcnProtoType)>
+%endfunction
