@@ -1,0 +1,29 @@
+<portlist>
+<inport> Id = "1"  Name = "integrator_reset" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "2"  Name = "u/u_BT" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "3"  Name = "u/u_VSP1" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "4"  Name = "u/u_VSP2" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "5"  Name = "u/alpha_VSP1" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "6"  Name = "u/alpha_VSP2" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "7"  Name = "u/omega_VSP1" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "8"  Name = "u/omega_VSP2" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "9"  Name = "eta_0/psi_0" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "10"  Name = "eta_0/x_0" Width = "1" DataType = "real_T" </inport>
+<inport> Id = "11"  Name = "eta_0/y_0" Width = "1" DataType = "real_T" </inport>
+<outport> Id = "1"  Name = "eta/x" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "2"  Name = "eta/y" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "3"  Name = "eta/psi" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "4"  Name = "nu/r" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "5"  Name = "nu/u" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "6"  Name = "nu/v" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "7"  Name = "nu_dot/r_dot" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "8"  Name = "nu_dot/u_dot" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "9"  Name = "nu_dot/v_dot" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "10"  Name = "nu_dot/zeroout" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "11"  Name = "nu_dot/r_dot1" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "12"  Name = "nu_dot/u_dot1" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "13"  Name = "nu_dot/v_dot1" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "14"  Name = "tau/X" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "15"  Name = "tau/Y" Width = "1" DataType = "real_T" </outport>
+<outport> Id = "16"  Name = "tau/N" Width = "1" DataType = "real_T" </outport>
+</portlist>

@@ -1,0 +1,452 @@
+%implements s13_b0_hdszc_TLCInterface "C"
+
+%function getOutputAddr_12_3_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_B.Surge"
+%endfunction
+
+%function getOutput_12_3_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_B.Surge"
+%endfunction
+
+%function getDWorkAddr_12_3_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Surge_DWORK1"
+%endfunction
+
+%function getDWork_12_3_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Surge_DWORK1"
+%endfunction
+
+%function getDWorkAddr_12_3_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Surge_DWORK2" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_12_3_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Surge_DWORK2" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_12_3_1_14_1_9(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P1"
+%endfunction
+
+%function getParam_12_3_1_14_1_9(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P1"
+%endfunction
+
+%function getParamAddr_12_3_1_14_1_10(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P2"
+%endfunction
+
+%function getParam_12_3_1_14_1_10(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P2"
+%endfunction
+
+%function getParamAddr_12_3_1_14_1_11(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P3"
+%endfunction
+
+%function getParam_12_3_1_14_1_11(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P3"
+%endfunction
+
+%function getParamAddr_12_3_1_14_1_12(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P4"
+%endfunction
+
+%function getParam_12_3_1_14_1_12(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P4"
+%endfunction
+
+%function getParamAddr_12_3_1_14_1_13(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P5"
+%endfunction
+
+%function getParam_12_3_1_14_1_13(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P5"
+%endfunction
+
+%function getParamAddr_12_3_1_14_1_14(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P6"
+%endfunction
+
+%function getParam_12_3_1_14_1_14(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P6"
+%endfunction
+
+%function getOutputAddr_12_5_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_B.Yaw"
+%endfunction
+
+%function getOutput_12_5_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_B.Yaw"
+%endfunction
+
+%function getDWorkAddr_12_5_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Yaw_DWORK1"
+%endfunction
+
+%function getDWork_12_5_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Yaw_DWORK1"
+%endfunction
+
+%function getDWorkAddr_12_5_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Yaw_DWORK2" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_12_5_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Yaw_DWORK2" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_12_5_1_14_1_16(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P1"
+%endfunction
+
+%function getParam_12_5_1_14_1_16(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P1"
+%endfunction
+
+%function getParamAddr_12_5_1_14_1_17(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P2"
+%endfunction
+
+%function getParam_12_5_1_14_1_17(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P2"
+%endfunction
+
+%function getParamAddr_12_5_1_14_1_18(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P3"
+%endfunction
+
+%function getParam_12_5_1_14_1_18(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P3"
+%endfunction
+
+%function getParamAddr_12_5_1_14_1_19(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P4"
+%endfunction
+
+%function getParam_12_5_1_14_1_19(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P4"
+%endfunction
+
+%function getParamAddr_12_5_1_14_1_20(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P5"
+%endfunction
+
+%function getParam_12_5_1_14_1_20(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P5"
+%endfunction
+
+%function getParamAddr_12_5_1_14_1_21(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P6"
+%endfunction
+
+%function getParam_12_5_1_14_1_21(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P6"
+%endfunction
+
+%function getOutputAddr_12_7_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_B.Surge_l"
+%endfunction
+
+%function getOutput_12_7_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_B.Surge_l"
+%endfunction
+
+%function getDWorkAddr_12_7_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Surge_DWORK1_d"
+%endfunction
+
+%function getDWork_12_7_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Surge_DWORK1_d"
+%endfunction
+
+%function getDWorkAddr_12_7_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Surge_DWORK2_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_12_7_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Surge_DWORK2_g" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_12_7_1_14_1_23(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P1_j"
+%endfunction
+
+%function getParam_12_7_1_14_1_23(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P1_j"
+%endfunction
+
+%function getParamAddr_12_7_1_14_1_24(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P2_k"
+%endfunction
+
+%function getParam_12_7_1_14_1_24(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P2_k"
+%endfunction
+
+%function getParamAddr_12_7_1_14_1_25(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P3_m"
+%endfunction
+
+%function getParam_12_7_1_14_1_25(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P3_m"
+%endfunction
+
+%function getParamAddr_12_7_1_14_1_26(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P4_b"
+%endfunction
+
+%function getParam_12_7_1_14_1_26(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P4_b"
+%endfunction
+
+%function getParamAddr_12_7_1_14_1_27(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P5_d"
+%endfunction
+
+%function getParam_12_7_1_14_1_27(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P5_d"
+%endfunction
+
+%function getParamAddr_12_7_1_14_1_28(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Surge_P6_f"
+%endfunction
+
+%function getParam_12_7_1_14_1_28(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Surge_P6_f"
+%endfunction
+
+%function getOutputAddr_12_8_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_B.Yaw_l"
+%endfunction
+
+%function getOutput_12_8_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_B.Yaw_l"
+%endfunction
+
+%function getDWorkAddr_12_8_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Yaw_DWORK1_j"
+%endfunction
+
+%function getDWork_12_8_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Yaw_DWORK1_j"
+%endfunction
+
+%function getDWorkAddr_12_8_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Yaw_DWORK2_i" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_12_8_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Yaw_DWORK2_i" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_12_8_1_14_1_29(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P1_b"
+%endfunction
+
+%function getParam_12_8_1_14_1_29(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P1_b"
+%endfunction
+
+%function getParamAddr_12_8_1_14_1_30(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P2_f"
+%endfunction
+
+%function getParam_12_8_1_14_1_30(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P2_f"
+%endfunction
+
+%function getParamAddr_12_8_1_14_1_31(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P3_h"
+%endfunction
+
+%function getParam_12_8_1_14_1_31(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P3_h"
+%endfunction
+
+%function getParamAddr_12_8_1_14_1_32(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P4_g"
+%endfunction
+
+%function getParam_12_8_1_14_1_32(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P4_g"
+%endfunction
+
+%function getParamAddr_12_8_1_14_1_33(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P5_d"
+%endfunction
+
+%function getParam_12_8_1_14_1_33(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P5_d"
+%endfunction
+
+%function getParamAddr_12_8_1_14_1_34(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Yaw_P6_f"
+%endfunction
+
+%function getParam_12_8_1_14_1_34(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Yaw_P6_f"
+%endfunction
+
+%function getOutputAddr_12_9_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_B.Sway"
+%endfunction
+
+%function getOutput_12_9_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_B.Sway"
+%endfunction
+
+%function getDWorkAddr_12_9_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Sway_DWORK1"
+%endfunction
+
+%function getDWork_12_9_1_14_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Sway_DWORK1"
+%endfunction
+
+%function getDWorkAddr_12_9_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_DW.Sway_DWORK2" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_12_9_1_14_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_DW.Sway_DWORK2" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getParamAddr_12_9_1_14_1_35(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Sway_P1"
+%endfunction
+
+%function getParam_12_9_1_14_1_35(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Sway_P1"
+%endfunction
+
+%function getParamAddr_12_9_1_14_1_36(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Sway_P2"
+%endfunction
+
+%function getParam_12_9_1_14_1_36(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Sway_P2"
+%endfunction
+
+%function getParamAddr_12_9_1_14_1_37(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Sway_P3"
+%endfunction
+
+%function getParam_12_9_1_14_1_37(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Sway_P3"
+%endfunction
+
+%function getParamAddr_12_9_1_14_1_38(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Sway_P4"
+%endfunction
+
+%function getParam_12_9_1_14_1_38(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Sway_P4"
+%endfunction
+
+%function getParamAddr_12_9_1_14_1_39(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Sway_P5"
+%endfunction
+
+%function getParam_12_9_1_14_1_39(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Sway_P5"
+%endfunction
+
+%function getParamAddr_12_9_1_14_1_40(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&CSE1_HIL_full16_P.Sway_P6"
+%endfunction
+
+%function getParam_12_9_1_14_1_40(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "CSE1_HIL_full16_P.Sway_P6"
+%endfunction
+

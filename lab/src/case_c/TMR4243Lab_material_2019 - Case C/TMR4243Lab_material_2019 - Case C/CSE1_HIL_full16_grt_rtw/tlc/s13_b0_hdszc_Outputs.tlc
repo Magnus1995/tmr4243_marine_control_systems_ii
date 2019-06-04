@@ -1,0 +1,718 @@
+%implements s13_b0_hdszc_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(7, 0)> %% rtb_Saturation3
+%<SLibCGIRAccessLocalVar(8, 0)> %% rtb_Saturation
+%<SLibCGIRAccessLocalVar(11, 0)> %% rtb_Saturation4
+%<SLibCGIRAccessLocalVar(12, 0)> %% rtb_Saturation1
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+ZCEventType zcEvent;
+real_T BK[9];
+real_T V[9];
+int32_T vcol;
+real_T tol;
+real_T U[9];
+real_T S[9];
+boolean_T b_p;
+int32_T ar;
+int32_T ia;
+int32_T b_ic;
+static const real_T b_b[9] = { 1.03, 0.0, 0.0, 0.0, 1.03, 0.0, 0.0, 0.0, 2.629 };
+real_T f[5];
+static const real_T a[15] = { 0.42357812929308769, 4.85722573273506E-17, 0.55742434352553283, 3.4694469519536142E-18, 0.01899752718137937, -0.31957137810574232, 0.49999999999999994, -0.79354241080189958, 0.50000000000000011, 1.1131137889076417, -0.69866938807551882, -3.8857805861880479E-16, -1.7348981434234794, -5.5511151231257827E-17, 2.4335675314989977 };
+real_T B[3];
+real_T rtb_MultiportSwitch[7];
+real_T rtb_Gain_p;
+real_T rtb_Sum1;
+real_T rtb_ManualSwitch[7];
+int32_T r;
+real_T tmp[9];
+real_T tmp_0[9];
+real_T tmp_1[9];
+real_T rtb_alpha_valid_0[3];
+real_T rtb_alpha_valid_idx_1;
+int32_T rtb_Out_idx_3;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%assign tlcOutputsFcnOfS12B3 = OpaqueTLCBlockFcn("Outputs", 12, 3, 1, 14)
+%assign tlcOutputsFcnOfS12B5 = OpaqueTLCBlockFcn("Outputs", 12, 5, 1, 14)
+%assign tlcOutputsFcnOfS12B7 = OpaqueTLCBlockFcn("Outputs", 12, 7, 1, 14)
+%assign tlcOutputsFcnOfS12B8 = OpaqueTLCBlockFcn("Outputs", 12, 8, 1, 14)
+%assign tlcOutputsFcnOfS12B9 = OpaqueTLCBlockFcn("Outputs", 12, 9, 1, 14)
+if (%<(SLibCGIRIsSampleHit(1, 12))>) {
+    /* MATLAB Function: '<S11>/Propeller angle logic' incorporates:
+ *  Constant: '<S5>/Thruster angles'
+ */
+    tol = CSE1_HIL_full16_P.Thrusterangles_Value[1];
+    rtb_Gain_p = CSE1_HIL_full16_P.Thrusterangles_Value[2];
+    /* MATLAB Function 'Controller/CtrlCustom_SLX/Polar coordinate thrust allocation/Propeller angle logic': '<S18>:1' */
+    /* Propeller 1 */
+    if (CSE1_HIL_full16_P.Thrusterangles_Value[1] > 3.1415926535897931) {
+        /* '<S18>:1:5' */
+        /* '<S18>:1:6' */
+        tol = 3.1415926535897931;
+    } else {
+        if (CSE1_HIL_full16_P.Thrusterangles_Value[1] < -3.1415926535897931) {
+            /* '<S18>:1:7' */
+            /* '<S18>:1:8' */
+            tol = -3.1415926535897931;
+        }
+    }
+    /* Propeller 2 */
+    if (CSE1_HIL_full16_P.Thrusterangles_Value[2] > 3.1415926535897931) {
+        /* '<S18>:1:13' */
+        /* '<S18>:1:14' */
+        rtb_Gain_p = 3.1415926535897931;
+    } else {
+        if (CSE1_HIL_full16_P.Thrusterangles_Value[2] < -3.1415926535897931) {
+            /* '<S18>:1:15' */
+            /* '<S18>:1:16' */
+            rtb_Gain_p = -3.1415926535897931;
+        }
+    }
+    /* MATLAB Function: '<S11>/BK inverse ' incorporates:
+ *  MATLAB Function: '<S11>/Propeller angle logic'
+ */
+    /* '<S18>:1:19' */
+    /* '<S18>:1:21' */
+    /* MATLAB Function 'Controller/CtrlCustom_SLX/Polar coordinate thrust allocation/BK inverse ': '<S17>:1' */
+    /* '<S17>:1:27' */
+    /* '<S17>:1:10' */
+    /* '<S17>:1:11' */
+    /* '<S17>:1:13' */
+    /* '<S17>:1:17' */
+    /* '<S17>:1:18' */
+    /* '<S17>:1:19' */
+    /* '<S17>:1:20' */
+    /* '<S17>:1:22' */
+    /* '<S17>:1:27' */
+    U[0] = 0.0;
+    U[3] = cos(tol);
+    U[6] = cos(rtb_Gain_p);
+    U[1] = 1.0;
+    U[4] = sin(tol);
+    U[7] = sin(rtb_Gain_p);
+    U[2] = 0.3875;
+    U[5] = 0.055 * cos(tol) + -0.4574 * sin(tol);
+    U[8] = -0.055 * cos(rtb_Gain_p) + -0.4574 * sin(rtb_Gain_p);
+    for (r = 0; r < 3; r++) {
+        for (ar = 0; ar < 3; ar++) {
+            BK[ar + 3 * r] = 0.0;
+            BK[ar + 3 * r] += b_b[3 * r] * U[ar];
+            BK[ar + 3 * r] += b_b[3 * r + 1] * U[ar + 3];
+            BK[ar + 3 * r] += b_b[3 * r + 2] * U[ar + 6];
+        }
+    }
+    /* '<S17>:1:29' */
+    b_p = true;
+    for (r = 0; r < 9; r++) {
+        CSE1_HIL_full16_B.BK_inv[r] = 0.0;
+        if (b_p && ((!rtIsInf(BK[r])) && (!rtIsNaN(BK[r])))) {
+        } else {
+            b_p = false;
+        }
+    }
+    if (b_p) {
+        %<(SLibCGCallSubFcn("CSE1_HIL_full16_svd", ["BK", "U", "S", "V"], 1, 14, 0))>;
+    } else {
+        for (r = 0; r < 9; r++) {
+            U[r] = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+            S[r] = 0.0;
+            V[r] = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+        }
+        S[0] = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+        S[4] = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+        S[8] = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+    }
+    tol = 3.0 * S[0] * 2.2204460492503131E-16;
+    r = 0;
+    vcol = 0;
+    while ((vcol + 1 < 4) && (S[3 * vcol + vcol] > tol)) {
+        r++;
+        vcol++;
+    }
+    if (r > 0) {
+        vcol = 0;
+        for (rtb_Out_idx_3 = 0; rtb_Out_idx_3 + 1 <= r; rtb_Out_idx_3++) {
+            tol = 1.0 / S[3 * rtb_Out_idx_3 + rtb_Out_idx_3];
+            for (ar = vcol; ar + 1 <= vcol + 3; ar++) {
+                V[ar] *= tol;
+            }
+            vcol += 3;
+        }
+        memset(&CSE1_HIL_full16_B.BK_inv[0], 0, 9U * sizeof(real_T));
+        for (rtb_Out_idx_3 = 0; rtb_Out_idx_3 + 1 < 4; rtb_Out_idx_3++) {
+            CSE1_HIL_full16_B.BK_inv[rtb_Out_idx_3] = 0.0;
+        }
+        for (rtb_Out_idx_3 = 3; rtb_Out_idx_3 + 1 < 7; rtb_Out_idx_3++) {
+            CSE1_HIL_full16_B.BK_inv[rtb_Out_idx_3] = 0.0;
+        }
+        for (rtb_Out_idx_3 = 6; rtb_Out_idx_3 + 1 < 10; rtb_Out_idx_3++) {
+            CSE1_HIL_full16_B.BK_inv[rtb_Out_idx_3] = 0.0;
+        }
+        ar = -1;
+        vcol = (r - 1) * 3 + 1;
+        for (rtb_Out_idx_3 = 0; rtb_Out_idx_3 + 1 <= vcol; rtb_Out_idx_3 += 3) {
+            if (U[rtb_Out_idx_3] != 0.0) {
+                ia = ar;
+                for (b_ic = 0; b_ic + 1 < 4; b_ic++) {
+                    ia++;
+                    CSE1_HIL_full16_B.BK_inv[b_ic] += U[rtb_Out_idx_3] * V[ia];
+                }
+            }
+            ar += 3;
+        }
+        ar = -1;
+        vcol = (r - 1) * 3 + 2;
+        for (rtb_Out_idx_3 = 1; rtb_Out_idx_3 + 1 <= vcol; rtb_Out_idx_3 += 3) {
+            if (U[rtb_Out_idx_3] != 0.0) {
+                ia = ar;
+                for (b_ic = 3; b_ic + 1 < 7; b_ic++) {
+                    ia++;
+                    CSE1_HIL_full16_B.BK_inv[b_ic] += U[rtb_Out_idx_3] * V[ia];
+                }
+            }
+            ar += 3;
+        }
+        ar = -1;
+        vcol = (r - 1) * 3 + 3;
+        for (rtb_Out_idx_3 = 2; rtb_Out_idx_3 + 1 <= vcol; rtb_Out_idx_3 += 3) {
+            if (U[rtb_Out_idx_3] != 0.0) {
+                ia = ar;
+                for (b_ic = 6; b_ic + 1 < 10; b_ic++) {
+                    ia++;
+                    CSE1_HIL_full16_B.BK_inv[b_ic] += U[rtb_Out_idx_3] * V[ia];
+                }
+            }
+            ar += 3;
+        }
+    }
+    /* End of MATLAB Function: '<S11>/BK inverse ' */
+}
+%<tlcOutputsFcnOfS12B3>\
+%<tlcOutputsFcnOfS12B5>\
+%<tlcOutputsFcnOfS12B7>\
+%<tlcOutputsFcnOfS12B8>\
+%<tlcOutputsFcnOfS12B9>\
+/* SignalConversion: '<S19>/TmpSignal ConversionAt SFunction Inport1' incorporates:
+ *  Gain: '<S15>/Gain'
+ *  Gain: '<S15>/Gain1'
+ *  Gain: '<S15>/Gain2'
+ *  MATLAB Function: '<S13>/MATLAB Function'
+ */
+/* MATLAB Function 'Controller/CtrlCustom_SLX/Rectangular coordinate thrust allocation/MATLAB Function': '<S19>:1' */
+/* '<S19>:1:21' */
+/*  */
+/* Initialize extended thrust allocation matrix */
+/* Extended force vector */
+/* '<S19>:1:21' */
+tol = CSE1_HIL_full16_P.Gain_Gain_d * CSE1_HIL_full16_B.Surge_l;
+rtb_Gain_p = CSE1_HIL_full16_P.Gain2_Gain * CSE1_HIL_full16_B.Sway;
+rtb_alpha_valid_idx_1 = CSE1_HIL_full16_P.Gain1_Gain_i * CSE1_HIL_full16_B.Yaw_l;
+/* MATLAB Function: '<S13>/MATLAB Function' */
+for (r = 0; r < 5; r++) {
+    f[r] = a[r + 10] * rtb_alpha_valid_idx_1 + (a[r + 5] * rtb_Gain_p + a[r] * tol);
+}
+/*  */
+/* Calculate angles and control input */
+/* '<S19>:1:25' */
+/* '<S19>:1:26' */
+/* '<S19>:1:28' */
+/* '<S19>:1:34' */
+/* '<S19>:1:35' */
+/* '<S19>:1:36' */
+/* '<S19>:1:38' */
+/* '<S19>:1:40' */
+if (%<(SLibCGIRIsSampleHit(1, 12))>) {
+    /* MATLAB Function: '<S1>/Sixais Sim' incorporates:
+ *  Constant: '<Root>/Mode Selector (Sixais)'
+ */
+    /* MATLAB Function 'Controller/DP_Ctrl/Thrust Allocation /THALOC (u->tau)': '<S24>:1' */
+    /* '<S24>:1:3' */
+    /* MATLAB Function 'Controller/Sixais Sim': '<S9>:1' */
+    /*  Function that takes in impulse button sigals [0,1] and sends out a  */
+    /*  different signal depentent pn which button has been pressed */
+    if (CSE1_HIL_full16_P.ModeSelectorSixais_Value == 1.0) {
+        /* '<S9>:1:6' */
+        /* '<S9>:1:7' */
+        r = 1;
+        ar = 0;
+        vcol = 0;
+        rtb_Out_idx_3 = 0;
+    } else if (CSE1_HIL_full16_P.ModeSelectorSixais_Value == 2.0) {
+        /* '<S9>:1:8' */
+        /* '<S9>:1:9' */
+        r = 0;
+        ar = 1;
+        vcol = 0;
+        rtb_Out_idx_3 = 0;
+    } else if (CSE1_HIL_full16_P.ModeSelectorSixais_Value == 4.0) {
+        /* '<S9>:1:10' */
+        /* '<S9>:1:11' */
+        r = 0;
+        ar = 0;
+        vcol = 0;
+        rtb_Out_idx_3 = 1;
+    } else {
+        /* '<S9>:1:13' */
+        r = 0;
+        ar = 0;
+        vcol = 1;
+        rtb_Out_idx_3 = 0;
+    }
+    /* End of MATLAB Function: '<S1>/Sixais Sim' */
+
+    /* MATLAB Function: '<S1>/Switch_function' incorporates:
+ *  Memory: '<S1>/Memory'
+ */
+    /* MATLAB Function 'Controller/Switch_function': '<S10>:1' */
+    /*  Function that takes in impulse button sigals [0,1] and sends out a  */
+    /*  different signal depentent pn which button has been pressed */
+    /* '<S10>:1:8' */
+    tol = CSE1_HIL_full16_DW.Memory_PreviousInput;
+    if (r != 0) {
+        /* '<S10>:1:10' */
+        /* '<S10>:1:11' */
+        tol = 1.0;
+    }
+    if (ar != 0) {
+        /* '<S10>:1:14' */
+        /* '<S10>:1:15' */
+        tol = 2.0;
+    }
+    if (vcol != 0) {
+        /* '<S10>:1:18' */
+        /* '<S10>:1:19' */
+        tol = 3.0;
+    }
+    if (rtb_Out_idx_3 != 0) {
+        /* '<S10>:1:22' */
+        /* '<S10>:1:23' */
+        tol = 4.0;
+    }
+    /* '<S10>:1:26' */
+    CSE1_HIL_full16_B.switch_signal = tol;
+    /* End of MATLAB Function: '<S1>/Switch_function' */
+
+    /* Constant: '<S3>/Eta0' */
+    CSE1_HIL_full16_B.Eta0[0] = CSE1_HIL_full16_P.Eta0_Value[0];
+    CSE1_HIL_full16_B.Eta0[1] = CSE1_HIL_full16_P.Eta0_Value[1];
+    CSE1_HIL_full16_B.Eta0[2] = CSE1_HIL_full16_P.Eta0_Value[2];
+}
+/* MultiPortSwitch: '<S1>/Multiport Switch' incorporates:
+ *  Constant: '<S7>/Constant'
+ *  Constant: '<S7>/Constant1'
+ *  Constant: '<S7>/Constant2'
+ *  Constant: '<S7>/Constant3'
+ *  Constant: '<S7>/Constant4'
+ *  Constant: '<S8>/Constant'
+ *  Constant: '<S8>/Constant1'
+ *  Constant: '<S8>/Constant2'
+ *  Constant: '<S8>/Constant3'
+ *  Constant: '<S8>/Constant4'
+ */
+switch ((int32_T)CSE1_HIL_full16_B.switch_signal) {
+  case 1:
+    /* ManualSwitch: '<S5>/Manual Switch' incorporates:
+ *  Constant: '<S5>/Thruster angles'
+ *  MATLAB Function: '<S13>/MATLAB Function'
+ */
+    if (CSE1_HIL_full16_P.ManualSwitch_CurrentSetting == 1) {
+        /* SignalConversion: '<S11>/TmpSignal ConversionAtProductInport2' incorporates:
+ *  Gain: '<S14>/Gain'
+ *  Gain: '<S14>/Gain1'
+ */
+        tol = CSE1_HIL_full16_P.Gain_Gain * CSE1_HIL_full16_B.Surge;
+        rtb_alpha_valid_idx_1 = CSE1_HIL_full16_P.Gain1_Gain * CSE1_HIL_full16_B.Yaw;
+        /* Product: '<S11>/Product' incorporates:
+ *  Constant: '<S14>/sway'
+ */
+        for (r = 0; r < 3; r++) {
+            rtb_ManualSwitch[r] = CSE1_HIL_full16_B.BK_inv[r + 6] * rtb_alpha_valid_idx_1 + (CSE1_HIL_full16_B.BK_inv[r + 3] * CSE1_HIL_full16_P.sway_Value + CSE1_HIL_full16_B.BK_inv[r] * tol);
+        }
+        /* End of Product: '<S11>/Product' */
+        rtb_ManualSwitch[3] = CSE1_HIL_full16_P.Thrusterangles_Value[1];
+        rtb_ManualSwitch[4] = CSE1_HIL_full16_P.Thrusterangles_Value[2];
+    } else {
+        rtb_ManualSwitch[0] = f[4];
+        rtb_ManualSwitch[1] = sqrt(f[0] * f[0] + f[1] * f[1]) * 0.970873786407767;
+        rtb_ManualSwitch[3] = %<(SLibCGCallSubFcn("rt_atan2d_snf", ["f[1]", "f[0]"], 1, 14, 1))>;
+        rtb_ManualSwitch[2] = sqrt(f[2] * f[2] + f[3] * f[3]) * 0.970873786407767;
+        rtb_ManualSwitch[4] = %<(SLibCGCallSubFcn("rt_atan2d_snf", ["f[3]", "f[2]"], 1, 14, 2))>;
+    }
+    /* End of ManualSwitch: '<S5>/Manual Switch' */
+
+    /* Saturate: '<S16>/Saturation2' */
+    if (rtb_ManualSwitch[0] > CSE1_HIL_full16_P.Saturation2_UpperSat) {
+        rtb_MultiportSwitch[0] = CSE1_HIL_full16_P.Saturation2_UpperSat;
+    } else if (rtb_ManualSwitch[0] < CSE1_HIL_full16_P.Saturation2_LowerSat) {
+        rtb_MultiportSwitch[0] = CSE1_HIL_full16_P.Saturation2_LowerSat;
+    } else {
+        rtb_MultiportSwitch[0] = rtb_ManualSwitch[0];
+    }
+    /* End of Saturate: '<S16>/Saturation2' */
+
+    /* Saturate: '<S16>/Saturation11' */
+    if (rtb_ManualSwitch[1] > CSE1_HIL_full16_P.Saturation11_UpperSat) {
+        rtb_MultiportSwitch[1] = CSE1_HIL_full16_P.Saturation11_UpperSat;
+    } else if (rtb_ManualSwitch[1] < CSE1_HIL_full16_P.Saturation11_LowerSat) {
+        rtb_MultiportSwitch[1] = CSE1_HIL_full16_P.Saturation11_LowerSat;
+    } else {
+        rtb_MultiportSwitch[1] = rtb_ManualSwitch[1];
+    }
+    /* End of Saturate: '<S16>/Saturation11' */
+
+    /* Saturate: '<S16>/Saturation1' */
+    if (rtb_ManualSwitch[2] > CSE1_HIL_full16_P.Saturation1_UpperSat) {
+        rtb_MultiportSwitch[2] = CSE1_HIL_full16_P.Saturation1_UpperSat;
+    } else if (rtb_ManualSwitch[2] < CSE1_HIL_full16_P.Saturation1_LowerSat) {
+        rtb_MultiportSwitch[2] = CSE1_HIL_full16_P.Saturation1_LowerSat;
+    } else {
+        rtb_MultiportSwitch[2] = rtb_ManualSwitch[2];
+    }
+    /* End of Saturate: '<S16>/Saturation1' */
+    rtb_MultiportSwitch[3] = rtb_ManualSwitch[3];
+    rtb_MultiportSwitch[4] = rtb_ManualSwitch[4];
+    break;
+  case 2:
+    for (r = 0; r < 7; r++) {
+        rtb_MultiportSwitch[r] = 0.0;
+    }
+    break;
+  case 3:
+    rtb_MultiportSwitch[0] = CSE1_HIL_full16_P.Constant_Value_l;
+    rtb_MultiportSwitch[1] = CSE1_HIL_full16_P.Constant1_Value;
+    rtb_MultiportSwitch[2] = CSE1_HIL_full16_P.Constant2_Value;
+    rtb_MultiportSwitch[3] = CSE1_HIL_full16_P.Constant3_Value;
+    rtb_MultiportSwitch[4] = CSE1_HIL_full16_P.Constant4_Value;
+    break;
+  default:
+    rtb_MultiportSwitch[0] = CSE1_HIL_full16_P.Constant_Value_g;
+    rtb_MultiportSwitch[1] = CSE1_HIL_full16_P.Constant1_Value_m;
+    rtb_MultiportSwitch[2] = CSE1_HIL_full16_P.Constant2_Value_p;
+    rtb_MultiportSwitch[3] = CSE1_HIL_full16_P.Constant3_Value_m;
+    rtb_MultiportSwitch[4] = CSE1_HIL_full16_P.Constant4_Value_g;
+    break;
+}
+/* End of MultiPortSwitch: '<S1>/Multiport Switch' */
+
+/* Saturate: '<S26>/Saturation2' */
+if (rtb_MultiportSwitch[0] > CSE1_HIL_full16_P.Saturation2_UpperSat_c) {
+    tol = CSE1_HIL_full16_P.Saturation2_UpperSat_c;
+} else if (rtb_MultiportSwitch[0] < CSE1_HIL_full16_P.Saturation2_LowerSat_f) {
+    tol = CSE1_HIL_full16_P.Saturation2_LowerSat_f;
+} else {
+    tol = rtb_MultiportSwitch[0];
+}
+/* End of Saturate: '<S26>/Saturation2' */
+
+/* Integrator: '<S27>/Velocity' incorporates:
+ *  Constant: '<S2>/Constant'
+ */
+if (%<(LibIsMajorTimeStep())>) {
+    zcEvent = %<(SLibCG_SE(SLibCGIRZCFcn("ANY_ZERO_CROSSING", "CSE1_HIL_full16_PrevZCX.Velocity_Reset_ZCE", "CSE1_HIL_full16_P.Constant_Value_b", 0)))>;
+    /* evaluate zero-crossings */
+    if (zcEvent != NO_ZCEVENT) {
+        CSE1_HIL_full16_X.Velocity_CSTATE[0] = CSE1_HIL_full16_P.Velocity_IC[0];
+        CSE1_HIL_full16_X.Velocity_CSTATE[1] = CSE1_HIL_full16_P.Velocity_IC[1];
+        CSE1_HIL_full16_X.Velocity_CSTATE[2] = CSE1_HIL_full16_P.Velocity_IC[2];
+    }
+}
+/* MATLAB Function: '<S26>/Bow thruster' incorporates:
+ *  Integrator: '<S27>/Velocity'
+ */
+/* MATLAB Function 'Simulator CSE1/B Command to force mapping/Bow thruster': '<S28>:1' */
+/* '<S28>:1:3' */
+/*  Thruster characteristics */
+if (tol > 0.0) {
+    /* '<S28>:1:5' */
+    /* '<S28>:1:6' */
+    /* '<S28>:1:7' */
+    /* '<S28>:1:8' */
+    /* '<S28>:1:9' */
+    /* '<S28>:1:10' */
+    /* '<S28>:1:11' */
+    tol = -(exp(-(tol + 0.059) * 0.193) * -548.0 + exp(-(tol + 0.059) * 0.1992) * 548.2);
+} else if (tol < 0.0) {
+    /* '<S28>:1:12' */
+    /* '<S28>:1:13' */
+    /* '<S28>:1:14' */
+    /* '<S28>:1:15' */
+    /* '<S28>:1:16' */
+    /* '<S28>:1:17' */
+    /* '<S28>:1:18' */
+    tol = exp((tol - 0.059) * 0.193) * -548.0 + exp((tol - 0.059) * 0.1992) * 548.2;
+} else {
+    /* '<S28>:1:20' */
+    tol = 0.0;
+}
+/*  Thruster losses due to forward speed */
+/* '<S28>:1:23' */
+/* '<S28>:1:24' */
+/* '<S28>:1:25' */
+/* '<S28>:1:26' */
+/* '<S28>:1:27' */
+/* '<S28>:1:28' */
+tol = (atan(-10.22 * CSE1_HIL_full16_X.Velocity_CSTATE[0] + 2.947) * 0.3075 + 0.7561) * tol / 1.1385 * 2.62 / 2.7629;
+/* End of MATLAB Function: '<S26>/Bow thruster' */
+
+/* Saturate: '<S26>/Saturation3' */
+/* 2019 changes- Some add-hock changes, because it did not make sense previously.  */
+if (rtb_MultiportSwitch[3] > CSE1_HIL_full16_P.Saturation3_UpperSat) {
+    rtb_Saturation3 = CSE1_HIL_full16_P.Saturation3_UpperSat;
+} else if (rtb_MultiportSwitch[3] < CSE1_HIL_full16_P.Saturation3_LowerSat) {
+    rtb_Saturation3 = CSE1_HIL_full16_P.Saturation3_LowerSat;
+} else {
+    rtb_Saturation3 = rtb_MultiportSwitch[3];
+}
+/* End of Saturate: '<S26>/Saturation3' */
+
+/* Saturate: '<S26>/Saturation' */
+if (rtb_MultiportSwitch[1] > CSE1_HIL_full16_P.Saturation_UpperSat) {
+    rtb_Saturation = CSE1_HIL_full16_P.Saturation_UpperSat;
+} else if (rtb_MultiportSwitch[1] < CSE1_HIL_full16_P.Saturation_LowerSat) {
+    rtb_Saturation = CSE1_HIL_full16_P.Saturation_LowerSat;
+} else {
+    rtb_Saturation = rtb_MultiportSwitch[1];
+}
+/* End of Saturate: '<S26>/Saturation' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[9], "Output",0)
+
+/* MATLAB Function: '<S26>/VSP' */
+%if SLibCG_SystemFcnArgAccessed("CSE1_HIL_full16_VSP",9,0)
+%assign _modelSS = RTMGetModelSSFromIR()
+%endif
+%if SLibCG_SystemFcnArgAccessed("CSE1_HIL_full16_VSP",9,1)
+%<SLibCGIRAccessLocalVar(7, 0)> %% rtb_Saturation3
+%endif
+%if SLibCG_SystemFcnArgAccessed("CSE1_HIL_full16_VSP",9,2)
+%<SLibCGIRAccessLocalVar(8, 0)> %% rtb_Saturation
+%endif
+
+%<SLibCGIRGenReusableSysCall("CSE1_HIL_full16_VSP", ["%<_modelSS>", "rtb_Saturation3", "rtb_Saturation", "&CSE1_HIL_full16_B.sf_VSP"], 9, 0, 7, 0, 7, 12)>\
+
+%endif
+/* Gain: '<S26>/Gain' incorporates:
+ *  Constant: '<S26>/L_VSPy'
+ *  Product: '<S26>/Multiply1'
+ */
+rtb_Gain_p = CSE1_HIL_full16_P.L_VSPy_Value * CSE1_HIL_full16_B.sf_VSP.F_x * CSE1_HIL_full16_P.Gain_Gain_n;
+/* Saturate: '<S26>/Saturation4' */
+if (rtb_MultiportSwitch[4] > CSE1_HIL_full16_P.Saturation4_UpperSat) {
+    rtb_Saturation4 = CSE1_HIL_full16_P.Saturation4_UpperSat;
+} else if (rtb_MultiportSwitch[4] < CSE1_HIL_full16_P.Saturation4_LowerSat) {
+    rtb_Saturation4 = CSE1_HIL_full16_P.Saturation4_LowerSat;
+} else {
+    rtb_Saturation4 = rtb_MultiportSwitch[4];
+}
+/* End of Saturate: '<S26>/Saturation4' */
+
+/* Saturate: '<S26>/Saturation1' */
+if (rtb_MultiportSwitch[2] > CSE1_HIL_full16_P.Saturation1_UpperSat_p) {
+    rtb_Saturation1 = CSE1_HIL_full16_P.Saturation1_UpperSat_p;
+} else if (rtb_MultiportSwitch[2] < CSE1_HIL_full16_P.Saturation1_LowerSat_e) {
+    rtb_Saturation1 = CSE1_HIL_full16_P.Saturation1_LowerSat_e;
+} else {
+    rtb_Saturation1 = rtb_MultiportSwitch[2];
+}
+/* End of Saturate: '<S26>/Saturation1' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[9], "Output",0)
+
+/* MATLAB Function: '<S26>/VSP1' */
+%if SLibCG_SystemFcnArgAccessed("CSE1_HIL_full16_VSP",9,0)
+%assign _modelSS = RTMGetModelSSFromIR()
+%endif
+%if SLibCG_SystemFcnArgAccessed("CSE1_HIL_full16_VSP",9,1)
+%<SLibCGIRAccessLocalVar(11, 0)> %% rtb_Saturation4
+%endif
+%if SLibCG_SystemFcnArgAccessed("CSE1_HIL_full16_VSP",9,2)
+%<SLibCGIRAccessLocalVar(12, 0)> %% rtb_Saturation1
+%endif
+
+%<SLibCGIRGenReusableSysCall("CSE1_HIL_full16_VSP", ["%<_modelSS>", "rtb_Saturation4", "rtb_Saturation1", "&CSE1_HIL_full16_B.sf_VSP1"], 9, 1, 7, 0, 7, 12)>\
+
+%endif
+/* Sum: '<S26>/Sum1' */
+rtb_Sum1 = CSE1_HIL_full16_B.sf_VSP.F_y + CSE1_HIL_full16_B.sf_VSP1.F_y;
+if (%<(SLibCGIRIsSampleHit(1, 12))>) {
+    /* Gain: '<S26>/Gain1' incorporates:
+ *  Constant: '<S26>/L_VSP'
+ */
+    CSE1_HIL_full16_B.Gain1 = CSE1_HIL_full16_P.Gain1_Gain_o * CSE1_HIL_full16_P.L_VSP_Value;
+}
+/* Integrator: '<S27>/Position' incorporates:
+ *  Constant: '<S2>/Constant'
+ */
+if (%<(LibIsMajorTimeStep())>) {
+    zcEvent = %<(SLibCG_SE(SLibCGIRZCFcn("ANY_ZERO_CROSSING", "CSE1_HIL_full16_PrevZCX.Position_Reset_ZCE", "CSE1_HIL_full16_P.Constant_Value_b", 0)))>;
+    /* evaluate zero-crossings */
+    if ((zcEvent != NO_ZCEVENT) || (CSE1_HIL_full16_DW.Position_IWORK != 0)) {
+        CSE1_HIL_full16_X.Position_CSTATE[0] = CSE1_HIL_full16_B.Eta0[0];
+        CSE1_HIL_full16_X.Position_CSTATE[1] = CSE1_HIL_full16_B.Eta0[1];
+        CSE1_HIL_full16_X.Position_CSTATE[2] = CSE1_HIL_full16_B.Eta0[2];
+    }
+}
+/* MATLAB Function: '<S27>/kinematics' incorporates:
+ *  Integrator: '<S27>/Position'
+ */
+/* MATLAB Function 'Simulator CSE1/EquationsOfMotion (Fossen Model)/kinematics': '<S31>:1' */
+/* '<S31>:1:7' */
+/* '<S31>:1:3' */
+/* '<S31>:1:5' */
+/* '<S31>:1:9' */
+tmp[0] = cos(CSE1_HIL_full16_X.Position_CSTATE[2]);
+tmp[3] = -sin(CSE1_HIL_full16_X.Position_CSTATE[2]);
+tmp[6] = 0.0;
+tmp[1] = sin(CSE1_HIL_full16_X.Position_CSTATE[2]);
+tmp[4] = cos(CSE1_HIL_full16_X.Position_CSTATE[2]);
+tmp[7] = 0.0;
+tmp[2] = 0.0;
+tmp[5] = 0.0;
+tmp[8] = 1.0;
+/* SignalConversion: '<S32>/TmpSignal ConversionAt SFunction Inport1' incorporates:
+ *  Constant: '<S26>/L_BTX'
+ *  Constant: '<S26>/L_VSPy'
+ *  MATLAB Function: '<S27>/kinetics'
+ *  Product: '<S26>/Multiply'
+ *  Product: '<S26>/Multiply2'
+ *  Product: '<S26>/Multiply3'
+ *  Sum: '<S26>/Add'
+ *  Sum: '<S26>/Add1'
+ */
+rtb_alpha_valid_idx_1 = tol + rtb_Sum1;
+rtb_Sum1 = ((tol * CSE1_HIL_full16_P.L_BTX_Value + rtb_Gain_p) + rtb_Sum1 * CSE1_HIL_full16_B.Gain1) + CSE1_HIL_full16_P.L_VSPy_Value * CSE1_HIL_full16_B.sf_VSP1.F_x;
+/* MATLAB Function: '<S27>/kinetics' incorporates:
+ *  Integrator: '<S27>/Velocity'
+ */
+/* MATLAB Function 'Simulator CSE1/EquationsOfMotion (Fossen Model)/kinetics': '<S32>:1' */
+/* '<S32>:1:75' */
+/* '<S32>:1:3' */
+/* '<S32>:1:4' */
+/* '<S32>:1:5' */
+/* '<S32>:1:7' */
+/*  MATRICES  */
+/* changed m from 14.79 to 14.11 */
+/* '<S32>:1:11' */
+/*  x_g  =  0.0460; %<"\% Table B.1"> */
+/*  Added mass */
+/* changed Y_vd from -1.0 to -10.0 */
+/* '<S32>:1:15' */
+/*  Table B.1 */
+/* '<S32>:1:16' */
+/*  Table B.1 */
+/* '<S32>:1:17' */
+/*  Table B.1 */
+/*  Total mass matrix */
+/*  noted as Y_rd in handbook, but same value */
+/*  Damping coefficients */
+/*  Comments at the end of the lines indicate the old values used. */
+/* '<S32>:1:32' */
+/* '<S32>:1:33' */
+/* '<S32>:1:34' */
+/* '<S32>:1:36' */
+/*  Y_r */
+/* '<S32>:1:37' */
+/*  Y_rr */
+/* '<S32>:1:38' */
+/* '<S32>:1:40' */
+/*  Y_rv, Y_vr */
+/* '<S32>:1:42' */
+/*  N_r */
+/* '<S32>:1:43' */
+/*  N_rr */
+/* '<S32>:1:44' */
+/* '<S32>:1:46' */
+/*  N_rv, N_vr */
+/*  Correolis matrix */
+/* '<S32>:1:49' */
+tol = -24.11 * CSE1_HIL_full16_X.Velocity_CSTATE[1] - 0.529125 * CSE1_HIL_full16_X.Velocity_CSTATE[2];
+/* '<S32>:1:50' */
+rtb_Gain_p = 16.11 * CSE1_HIL_full16_X.Velocity_CSTATE[0];
+/* '<S32>:1:51' */
+/*  Assembly of the damping matrix */
+/* should be abs(u), abs(v) some places, only positive values?  */
+/* '<S32>:1:58' */
+/* '<S32>:1:59' */
+/* '<S32>:1:60' */
+/*  using abs(r) */
+/* '<S32>:1:63' */
+/* '<S32>:1:64' */
+/* D    = [d_11 d_12 0      vet ikke hvorfor d_12 er her */
+/*         0    d_22 d_23 */
+/*         0    d_32 d_33]; */
+/* '<S32>:1:69' */
+/*  CALCULATION */
+/* '<S32>:1:75' */
+tmp_0[0] = 0.0;
+tmp_0[3] = 0.0;
+tmp_0[6] = tol;
+tmp_0[1] = 0.0;
+tmp_0[4] = 0.0;
+tmp_0[7] = rtb_Gain_p;
+tmp_0[2] = -tol;
+tmp_0[5] = -rtb_Gain_p;
+tmp_0[8] = 0.0;
+tmp_1[0] = (0.6555 - 0.3545 * CSE1_HIL_full16_X.Velocity_CSTATE[0]) - CSE1_HIL_full16_X.Velocity_CSTATE[0] * CSE1_HIL_full16_X.Velocity_CSTATE[0] * -3.787;
+tmp_1[3] = 0.0;
+tmp_1[6] = 0.0;
+tmp_1[1] = 0.0;
+tmp_1[4] = ((1.33 - -2.776 * CSE1_HIL_full16_X.Velocity_CSTATE[1]) - CSE1_HIL_full16_X.Velocity_CSTATE[1] * CSE1_HIL_full16_X.Velocity_CSTATE[1] * -64.91) - -0.805 * fabs(CSE1_HIL_full16_X.Velocity_CSTATE[2]);
+tmp_1[7] = ((7.25 - -3.45 * fabs(CSE1_HIL_full16_X.Velocity_CSTATE[2])) - CSE1_HIL_full16_X.Velocity_CSTATE[2] * CSE1_HIL_full16_X.Velocity_CSTATE[2] * 0.0) - -0.845 * fabs(CSE1_HIL_full16_X.Velocity_CSTATE[1]);
+tmp_1[2] = 0.0;
+tmp_1[5] = ((-0.0 - -0.2088 * CSE1_HIL_full16_X.Velocity_CSTATE[1]) - CSE1_HIL_full16_X.Velocity_CSTATE[1] * CSE1_HIL_full16_X.Velocity_CSTATE[1] * 0.0) - 0.13 * fabs(CSE1_HIL_full16_X.Velocity_CSTATE[2]);
+tmp_1[8] = ((1.9 - -0.75 * fabs(CSE1_HIL_full16_X.Velocity_CSTATE[2])) - CSE1_HIL_full16_X.Velocity_CSTATE[2] * CSE1_HIL_full16_X.Velocity_CSTATE[2] * 0.0) - 0.08 * fabs(CSE1_HIL_full16_X.Velocity_CSTATE[1]);
+for (r = 0; r < 3; r++) {
+    /* MATLAB Function: '<S27>/kinematics' incorporates:
+ *  Integrator: '<S27>/Velocity'
+ */
+    CSE1_HIL_full16_B.eta_dot[r] = 0.0;
+    CSE1_HIL_full16_B.eta_dot[r] += tmp[r] * CSE1_HIL_full16_X.Velocity_CSTATE[0];
+    /* MATLAB Function: '<S27>/kinetics' */
+    U[3 * r] = tmp_0[3 * r] + tmp_1[3 * r];
+    /* MATLAB Function: '<S27>/kinematics' incorporates:
+ *  Integrator: '<S27>/Velocity'
+ */
+    CSE1_HIL_full16_B.eta_dot[r] += tmp[r + 3] * CSE1_HIL_full16_X.Velocity_CSTATE[1];
+    /* MATLAB Function: '<S27>/kinetics' */
+    U[1 + 3 * r] = tmp_0[3 * r + 1] + tmp_1[3 * r + 1];
+    /* MATLAB Function: '<S27>/kinematics' incorporates:
+ *  Integrator: '<S27>/Velocity'
+ */
+    CSE1_HIL_full16_B.eta_dot[r] += tmp[r + 6] * CSE1_HIL_full16_X.Velocity_CSTATE[2];
+    /* MATLAB Function: '<S27>/kinetics' */
+    U[2 + 3 * r] = tmp_0[3 * r + 2] + tmp_1[3 * r + 2];
+}
+/* MATLAB Function: '<S27>/kinetics' incorporates:
+ *  Integrator: '<S27>/Velocity'
+ *  Sum: '<S26>/Sum'
+ */
+rtb_alpha_valid_0[0] = CSE1_HIL_full16_B.sf_VSP.F_x + CSE1_HIL_full16_B.sf_VSP1.F_x;
+rtb_alpha_valid_0[1] = rtb_alpha_valid_idx_1;
+rtb_alpha_valid_0[2] = rtb_Sum1;
+for (r = 0; r < 3; r++) {
+    B[r] = rtb_alpha_valid_0[r] - (U[r + 6] * CSE1_HIL_full16_X.Velocity_CSTATE[2] + (U[r + 3] * CSE1_HIL_full16_X.Velocity_CSTATE[1] + U[r] * CSE1_HIL_full16_X.Velocity_CSTATE[0]));
+}
+CSE1_HIL_full16_B.nu_dot[0] = B[0];
+CSE1_HIL_full16_B.nu_dot[1] = B[1] - CSE1_HIL_full16_B.nu_dot[0] * 0.0;
+CSE1_HIL_full16_B.nu_dot[2] = (B[2] - CSE1_HIL_full16_B.nu_dot[0] * 0.0) - CSE1_HIL_full16_B.nu_dot[1] * 0.021946287847366238;
+CSE1_HIL_full16_B.nu_dot[2] /= 2.7483876704427623;
+CSE1_HIL_full16_B.nu_dot[0] -= CSE1_HIL_full16_B.nu_dot[2] * 0.0;
+CSE1_HIL_full16_B.nu_dot[1] -= CSE1_HIL_full16_B.nu_dot[2] * 0.529125;
+CSE1_HIL_full16_B.nu_dot[1] /= 24.11;
+CSE1_HIL_full16_B.nu_dot[0] -= CSE1_HIL_full16_B.nu_dot[1] * 0.0;
+CSE1_HIL_full16_B.nu_dot[0] /= 16.11;
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 14, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

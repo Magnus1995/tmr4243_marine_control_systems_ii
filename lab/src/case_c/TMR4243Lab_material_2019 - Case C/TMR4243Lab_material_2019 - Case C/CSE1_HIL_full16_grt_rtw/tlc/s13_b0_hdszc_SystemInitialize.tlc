@@ -1,0 +1,32 @@
+%implements s13_b0_hdszc_SystemInitialize "C"
+
+%function SystemInitialize(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Memory: '<S1>/Memory' */
+CSE1_HIL_full16_DW.Memory_PreviousInput = CSE1_HIL_full16_P.Memory_X0;
+/* InitializeConditions for Integrator: '<S27>/Velocity' */
+CSE1_HIL_full16_X.Velocity_CSTATE[0] = CSE1_HIL_full16_P.Velocity_IC[0];
+CSE1_HIL_full16_X.Velocity_CSTATE[1] = CSE1_HIL_full16_P.Velocity_IC[1];
+CSE1_HIL_full16_X.Velocity_CSTATE[2] = CSE1_HIL_full16_P.Velocity_IC[2];
+/* InitializeConditions for Integrator: '<S27>/Position' */
+if (%<(LibIsFirstInitCond())>) {
+    CSE1_HIL_full16_X.Position_CSTATE[0] = 0.0;
+    CSE1_HIL_full16_X.Position_CSTATE[1] = 0.0;
+    CSE1_HIL_full16_X.Position_CSTATE[2] = 0.0;
+}
+CSE1_HIL_full16_DW.Position_IWORK = 1;
+/* End of InitializeConditions for Integrator: '<S27>/Position' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void SystemInitialize(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 13, fcnProtoType)>
+%endfunction

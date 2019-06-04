@@ -1,0 +1,19 @@
+%implements s13_b0_hdszc_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+/* Start for Constant: '<S3>/Eta0' */
+CSE1_HIL_full16_B.Eta0[0] = CSE1_HIL_full16_P.Eta0_Value[0];
+CSE1_HIL_full16_B.Eta0[1] = CSE1_HIL_full16_P.Eta0_Value[1];
+CSE1_HIL_full16_B.Eta0[2] = CSE1_HIL_full16_P.Eta0_Value[2];
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 12, fcnProtoType)>
+%endfunction
